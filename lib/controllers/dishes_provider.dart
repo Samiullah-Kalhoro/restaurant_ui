@@ -52,7 +52,6 @@ class DishesProvider with ChangeNotifier {
     _dishData.add(dishesModel);
     notifyListeners();
   }
-
   List<DishesModel> get dishes {
     return _dishData;
   }

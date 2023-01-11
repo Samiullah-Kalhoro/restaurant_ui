@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'widgets/dishes.dart';
+
+import '../widgets/bottom_nav.dart';
+import '../widgets/dishes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
+      bottomNavigationBar: const BottomNavBar(activeIndex: 0),
       appBar: AppBar(
         backgroundColor: const Color(0xff252836),
         title: const Text(

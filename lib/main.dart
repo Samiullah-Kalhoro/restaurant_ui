@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_ui/homepage.dart';
+import 'package:provider/provider.dart';
+
+
+import 'package:restaurant_ui/screens/homepage.dart';
+import 'package:restaurant_ui/screens/settings.dart';
+
+import 'controllers/nav_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ListenableProvider<NavigationController>(
+        create: (_) => NavigationController(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +31,30 @@ class MyApp extends StatelessWidget {
               bodyColor: Colors.white,
             ),
       ),
-      home: const HomePage(),
+      home: Navigator(
+          pages: getPages(context),
+          onPopPage: (route, result) {
+            bool popStatus = route.didPop(result);
+            if (popStatus == true) {
+              Provider.of<NavigationController>(context, listen: false)
+                  .changeScreen('/');
+            }
+            return popStatus;
+          }),
     );
   }
+}
+
+List<Page> getPages(context) {
+  NavigationController navigationController =
+      Provider.of<NavigationController>(context);
+  List<Page> pageList = [];
+  pageList.add(const MaterialPage(child: HomePage()));
+
+  switch (navigationController.screenName) {
+    case '/settings':
+      pageList.add(const MaterialPage(child: SettingsScreen()));
+      break;
+  }
+  return pageList;
 }

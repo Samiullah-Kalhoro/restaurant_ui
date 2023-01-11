@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/dishes_provider.dart';
+import '../controllers/dishes_provider.dart';
 import 'dish_item.dart';
 
 class Dishes extends StatelessWidget {
